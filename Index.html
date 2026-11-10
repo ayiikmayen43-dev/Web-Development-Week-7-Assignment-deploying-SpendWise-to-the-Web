@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpendWise — Track every shilling, dollar and cent</title>
+  <meta name="description" content="SpendWise is a simple, private expense tracker. Log spending, set a monthly budget and see where your money goes." />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><img src="./assets/favicon.svg" alt="" width="32" height="32" /> SpendWise</a>
+    <nav><a href="#tracker">Tracker</a><a href="#insights">Insights</a><a href="#about">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Personal finance, simplified</p>
+      <h1>Know where your money goes — <em>before</em> it’s gone.</h1>
+      <p class="lede">Log expenses in seconds, set a monthly budget, and watch your spending by category. Your data stays private in your browser.</p>
+      <a class="btn btn-primary" href="#tracker">Start tracking</a>
+    </div>
+    <div class="hero-card" aria-hidden="true">
+      <p class="muted">This month</p>
+      <p class="hero-amount" id="heroSpent">$0.00</p>
+      <div class="meter"><span id="heroMeter"></span></div>
+      <p class="muted small" id="heroCaption">Set a budget to see your progress</p>
+    </div>
+  </section>
+
+  <main id="tracker" class="grid">
+    <section class="panel">
+      <h2>Add an expense</h2>
+      <form id="expenseForm" autocomplete="off">
+        <label>Description
+          <input name="description" required maxlength="60" placeholder="e.g. Lunch with team" />
+        </label>
+        <div class="row">
+          <label>Amount
+            <input name="amount" type="number" min="0.01" step="0.01" required placeholder="0.00" />
+          </label>
+          <label>Date
+            <input name="date" type="date" required />
+          </label>
+        </div>
+        <label>Category
+          <select name="category" required>
+            <option>Food</option><option>Transport</option><option>Housing</option>
+            <option>Utilities</option><option>Entertainment</option><option>Health</option>
+            <option>Shopping</option><option>Education</option><option>Other</option>
+          </select>
+        </label>
+        <p class="error" id="formError" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Add expense</button>
+      </form>
+
+      <h2 class="mt">Monthly budget</h2>
+      <form id="budgetForm" class="inline">
+        <input name="budget" type="number" min="0" step="1" placeholder="e.g. 1500" aria-label="Monthly budget" />
+        <button class="btn" type="submit">Save</button>
+      </form>
+    </section>
+
+    <section class="panel" id="insights">
+      <div class="stats">
+        <div class="stat"><p class="muted">Spent</p><p class="stat-value" id="statSpent">$0.00</p></div>
+        <div class="stat"><p class="muted">Remaining</p><p class="stat-value" id="statRemaining">—</p></div>
+        <div class="stat"><p class="muted">Entries</p><p class="stat-value" id="statCount">0</p></div>
+      </div>
+      <h2>By category</h2>
+      <ul class="bars" id="categoryBars"></ul>
+    </section>
+
+    <section class="panel wide">
+      <div class="list-head">
+        <h2>Expenses</h2>
+        <div class="filters">
+          <input type="month" id="monthFilter" aria-label="Filter by month" />
+          <select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+          <button class="btn" id="exportBtn" type="button">Export CSV</button>
+        </div>
+      </div>
+      <ul class="expenses" id="expenseList"></ul>
+      <p class="empty" id="emptyState">No expenses for this period yet. Add your first one above.</p>
+    </section>
+  </main>
+
+  <section id="about" class="about">
+    <h2>About SpendWise</h2>
+    <p>SpendWise is a lightweight expense tracker built with HTML, CSS and vanilla JavaScript, hosted on Netlify with continuous deployment from GitHub. Every push to the main branch publishes a new version automatically.</p>
+  </section>
+
+  <footer class="footer">© <span id="year"></span> SpendWise · Deployed on Netlify</footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./script.js"></script>
+</body>
+</html>
